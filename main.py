@@ -1,0 +1,6 @@
+'''
+Definició ràpida:
+
+En aquest 
+
+'''
