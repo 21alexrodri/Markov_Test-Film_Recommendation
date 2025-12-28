@@ -1,6 +1,7 @@
-'''
-Definició ràpida:
+from mdp.transitions import build_transition_matrix
+from mdp.states import State, Action
 
-En aquest 
+T = build_transition_matrix()
 
-'''
+print(T[Action.INTENSE][State.ACTION])
+print(T[Action.INTENSE][State.ACTION].sum())
