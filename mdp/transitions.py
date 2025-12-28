@@ -137,41 +137,47 @@ def build_transition_matrix():
     '''
     En:
     Builds the transition probability matrix T[action][state][next_state]
-        · T represents the probability of moving from 'state' to 'next_state' when an action is taken.
+    · It represents a map of the probability of moving from the actual state to a new state when a certain action is taken.
+
+        RETURN
+        - T (np.array): Transition probability matrix
+
     Es:
     Construye la matriz de probabilidad de transición T[action][state][next_state]
-        · T representa la probabilidad de moverse de 'state' a 'next_state' cuando se toma una acción.
+    · Representa un mapa de la probabilidad de moverse del estado actual a un nuevo estado cuando se toma una acción determinada.
+    
+        RETURN
+        - T (np.array): Matriz de probabilidad de transición
+
     Ca:
     Construeix la matriu de probabilitat de transició T[action][state][next_state]
-        · T representa la probabilitat de moure's de 'state' a 'next_state' quan es pren una acció.
+        · Representa un mapa de la probabilitat de moure's de l'estat actual a un nou estat quan es pren una acció determinada.
+        
+        RETURN
+        - T (np.array): Matriu de probabilitat de transició 
     
     
     
     ==== BORRAR ABANS D'ENTREGAR O ALGO NO SE ====
-    Quin problema resol aquesta funció?
-        Si estic en un estat S i faig una acció A, a quins estats puc anar i amb quina probabilitat?
-        Això es guarda en T, una matriu de transicions.
     
-    Que retorna?
-        Retorna una estructura buida on més endavant s'ha de posar les probabilitats
+    BASICAMENT EL QUE BUSCA FER AQUESTA FUNCIÓ ÉS RETORNAR, A PARTIR DE L'ESTAT ACTUAL I L'ACCIÓ ACTUAL, LA PROBABILITAT DE CADA POSSIBLE FUTUR ESTAT. BASICAMENT CREA UN MAPA (LA MATRIU DE TRANSICIÓ) QUE DESPRÉS FARÀ SERVIR VALUE/POLICY ITERATION 
+    PER ESCOLLIR UN CAMÍ.
 
-    T s'ha de pensar com si fossin 3 capes, exemple:
-    T[Action.SIMILAR][State.ACTION][State.COMEDY]
-    Significa: probabilitat de passar de ACTION a COMEDY quan faig l'acció SIMILAR
-    
-    
     [AQUESTA FUNCIÓ NO ESTA ACABADA ENCARA]
     '''
-    n_actions = len(Action)
-    n_states = len(State)
+    n_actions = len(Action) # Necessitem el nombre exacte d'accions i estats per poder saber les dimensions de la matriu 
+    n_states = len(State) 
 
-    T = np.zeros((n_actions, n_states, n_states))
+    T = np.zeros((n_actions, n_states, n_states)) # Creem la matriu de transició amb zeros, 3 dimensions. Ara mateix per defecte tot es 0, per tant, per defecte no hi ha transició possible entre ningun estat.
     
-    for (state, action), outcomes in TRANSITIONS.items():
-        for next_state, prob in outcomes.items():
+    for key, value in TRANSITIONS.items(): # TRANSITIONS és el nostre diccionari, on key => estat i acció actual, value => outcomes (possibles futurs estats i les seves probabilitats), 
+        state = key[0]
+        action = key[1]
+        outcomes = value
+        for next_state, prob in outcomes.items(): # El que fem es omplenar la matriu de transició amb les probabilitats corresponents trobades al diccionari TRANSITIONS, les que no apareixen al outcome per aquella accio-estat es quedaran a 0.
             T[action][state][next_state] = prob
     
-    for action in Action:
+    for action in Action: # END és un estat terminal, per tant, des d'ell només podem seguir a ell mateix amb probabilitat 1 (100%).
         T[action][State.END][State.END] = 1.0
 
     return T
