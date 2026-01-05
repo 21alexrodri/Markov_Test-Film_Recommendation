@@ -1,8 +1,9 @@
 from algorithms.value_iteration import run_value_iteration
 from algorithms.policy_iteration import run_policy_iteration
-from mdp.states import State, Action
-from utils.functions import *
+from mdp.states import State
+from utils.cli import *
 from analysis.plots import *
+import random
 
 
 
@@ -58,13 +59,18 @@ def main():
 
             case '3':
                 gamma = ask_gamma()
+                
+                # Escollim un state aleatori per comparar les dues iteracions
+                possible_start_states = [s for s in State if s != State.END]
+                state = random.choice(possible_start_states)
+                print("goofy", state.name)
                 # vi -> Value Iteration
                 # pi -> Policy Iteration
-                policy_vi, values_vi = run_value_iteration(gamma)
-                policy_pi, values_pi = run_policy_iteration(gamma)
+                
+                policy_vi, values_vi = run_value_iteration(gamma, state)
+                policy_pi, values_pi = run_policy_iteration(gamma, state)
 
-                plot_values_comparison(values_vi, values_pi)
-                table_policy_comparison(policy_vi, policy_pi)
+                iteration_comparison(values_vi, values_pi, policy_vi, policy_pi)
 
             case _:
                 print("Exiting program.")
