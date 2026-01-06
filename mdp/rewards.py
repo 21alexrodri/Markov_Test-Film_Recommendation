@@ -1,30 +1,3 @@
-'''
-==== BORRAR ABANS D'ENTREGAR O ALGO NO SE ====
-Aquest arxiu s'ha creat després del transitions.py, t'ho dic perque sense entendre aquell arxiu aquest no s'entendrà gaire.
-
-- Ara mateix ja tenim T, que és la creació de la matriu de transicions, el mapa de probabilitats de moviment, els possibles camins que es poden seguir.
-- Ara el que falta és crear R, que ens donarà la recompensa per a cada acció en cada estat, què es bo i què no ho és.
-- Sense recompenses, value/policy no tindrien objectiu i no podrien escollir cap camí.
-
-· L'usuari segueix veient: bé
-· L'usuario canvia de gènere: bé
-· L'usuari acaba la sessió: malament
-
-Definirem R com R[state][action], és a dir, recompensa per estar en un estat i prendre una acció determinada. (És el que espera pymdptoolbox, que és la llibreria que estem fent servir)
-
-
-EN EL TEMA DE LES RECOMPENSES, PER FER-HO MES CURRAT, HE PENSAT EN FER-HO TIPUS QUE ALGUNES ACCIONS AMB CERTS ESTATS TINGUIN MÉS SENTIT I PER TANT LA RECOMPENSA SIGUI MÉS ALTA O MES BAIXA TENINT EN COMPTE QUE L'OBJECTIU ÉS
-    RETENIR A L'USUARI. AIXÒ HO HAURIEM DE DEIXAR DOCUMENTAT EN ALGUN LLOC.
-
-    HE DECIDIT FER-HO AIXÍ:
-    - Base positiva per seguir: +1 en estats no terminals (END)
-    - SIMILAR: petit bonus perque la gent normalment vol veure coses similars (per exemple, jo que se soci, no soc expert en psicologia humana pero té sentit)
-    - LIGHTER: bonus si vens d'algo intens ja que potencialment la persona voldra algo més lleuger
-    - INTENSE: bonus si vens de ACTION/SCI_FI, ja que la persona és potencialment més de veure coses intenses, penalització si vens de ROMANCE/COMEDY/DOCUMENTARY ja que potencialment la persona és més de coses lleugeres o emocionals.
-    - END: estat terminal.
-
-
-'''
 import numpy as np
 from mdp.states import State, Action
 # EN: On a real business case this would be done with a study, and using for example business intelligence patterns it could be analyzed the real case of rewards, but for this project, as requested, we will make a simple and fictitious version.

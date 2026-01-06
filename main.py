@@ -24,29 +24,6 @@ def main():
 
         match choice:
             case '1':
-                # print("Select a gamma value (from 0.1 to 0.9, default 0.9): ")
-                # print("Gamma value determines the importance of future rewards. A higher gamma (close to 1) values future rewards more, while a lower gamma (close to 0) focuses on immediate rewards.")
-                # gamma_input = input("Enter gamma value (or press Enter for default 0.9): ")
-                # try:
-                #     gamma = float(gamma_input) if gamma_input else 0.9
-                #     if not 0 < gamma < 1:
-                #         raise ValueError
-                # except ValueError:
-                #     print("Invalid gamma value. Using default gamma = 0.9")
-                #     gamma = 0.9
-                
-                # policy, values = run_value_iteration(gamma)
-                # print("================= Value Iteration Results ================\n")
-                # print("State values:")
-                # for state in State:
-                #     print(state.name, "->", round(values[state], 3))
-
-                # print("\nOptimal policy:")
-                # for state in State:
-                #     print(state.name, "->", Action(policy[state]).name)
-                
-                # print("===========================================================")
-
                 gamma = ask_gamma()
                 policy, values = run_value_iteration(gamma)
                 print_results("Value Iteration", policy, values)
@@ -59,14 +36,13 @@ def main():
 
             case '3':
                 gamma = ask_gamma()
-                
+
                 # Escollim un state aleatori per comparar les dues iteracions
                 possible_start_states = [s for s in State if s != State.END]
                 state = random.choice(possible_start_states)
-                print("goofy", state.name)
+
                 # vi -> Value Iteration
                 # pi -> Policy Iteration
-                
                 policy_vi, values_vi = run_value_iteration(gamma, state)
                 policy_pi, values_pi = run_policy_iteration(gamma, state)
 
@@ -184,5 +160,52 @@ Seguim tenint Optimal policy amb molts SIMILAR ja que aquesta és una bona recom
 
 
 Diferència entre Value Iteration i Policy Iteration
+La diferència fundamental en cada iteració és la següent:
+    - Value Iteration: Aquesta iteració primer calcula els valors de cada estat i seguidament dedueix la política óptima.
+    - Policy Iteration: Calcula directament la política óptima, després calcula els valors de cada estat i a mida que avança va millorant la política fins que no pugui més.
+
+En quant als resultats, veiem que independentment del gamma la diferència dels states és sempre més menor de 1.
+
+State Values Comparison (gamma = 0.1):
+--------------------------------------------------
+STATE           | VI         | PI         | DIFF
+--------------------------------------------------
+ACTION          | 1.457      | 1.455      | 0.002
+COMEDY          | 1.454      | 1.453      | 0.002
+HORROR          | 1.478      | 1.474      | 0.004
+ROMANCE         | 1.361      | 1.358      | 0.003
+DOCUMENTARY     | 1.170      | 1.166      | 0.004
+SCI_FI          | 1.469      | 1.465      | 0.004
+END             | -16.650    | -16.667    | 0.017
+
+State Values Comparison (gamma = 0.45):
+--------------------------------------------------
+STATE           | VI         | PI         | DIFF
+--------------------------------------------------
+ACTION          | 1.373      | 1.365      | 0.007
+COMEDY          | 1.263      | 1.255      | 0.009
+HORROR          | 1.234      | 1.226      | 0.007     
+ROMANCE         | 0.454      | 0.444      | 0.010
+DOCUMENTARY     | -0.263     | -0.274     | 0.011
+SCI_FI          | 1.375      | 1.368      | 0.007
+END             | -27.252    | -27.273    | 0.021
+
+
+State Values Comparison (gamma = 0.9):
+--------------------------------------------------
+STATE           | VI         | PI         | DIFF
+--------------------------------------------------
+ACTION          | -38.525    | -38.762    | 0.237
+COMEDY          | -43.357    | -43.594    | 0.237
+HORROR          | -37.798    | -38.035    | 0.237
+ROMANCE         | -51.169    | -51.406    | 0.238
+DOCUMENTARY     | -53.876    | -54.113    | 0.238
+SCI_FI          | -37.795    | -38.031    | 0.237
+END             | -149.757   | -150.000   | 0.243
+
+Que les diferències siguin tan lleus en el state és una bona senyal de que en els dos algoritmes el MDP és estable i sempre acaba en una política final semblant.
+Hem notat que, tot i la diferència sempre és menor de 1, al presentar un gamma més alt aquesta és fa major, ja que les recompenses futures tenen més pes en el càlcul
+dels valors dels estats. En canvi, al presentar un gamma baix, el model prioritza recompenses immediates i els resultats tendeixen a ser semblants.
+
 
 '''

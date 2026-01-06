@@ -2,29 +2,17 @@ import matplotlib.pyplot as plt
 import numpy as np
 from mdp.states import State, Action
 
+'''
+En:
+    Function to compare and plot the results of Value Iteration and Policy Iteration algorithms.
 
-# def plot_values_comparison(values_vi, values_pi):
-#     states = [state.name for state in State]
-#     indices = np.arange(len(states))
+Es:
+    Función para comparar y representar gráficamente los resultados de los algoritmos de Value Iteration y Policy Iteration.
 
-#     vi = [values_vi[state.value] for state in State]
-#     pi = [values_pi[state.value] for state in State]
+Ca:
+    Funció per comparar i representar gràficament els resultats dels algorismes de Value Iteration i Policy Iteration.
 
-#     width = 0.35
-
-#     plt.figure()
-#     plt.bar(indices - width / 2, vi, width, label="Value Iteration")
-#     plt.bar(indices + width / 2, pi, width, label="Policy Iteration")
-
-#     plt.xticks(indices, states, rotation=45)
-#     plt.ylabel("State Value")
-#     plt.title("State Value Comparison")
-#     plt.legend()
-#     plt.tight_layout()
-#     plt.show()
-
-
-
+'''
 def iteration_comparison(values_vi, values_pi, policy_vi, policy_pi):
     states = [state.name for state in State]
 
