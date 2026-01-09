@@ -156,15 +156,7 @@ def build_transition_matrix():
         RETURN
         - T (np.array): Matriu de probabilitat de transició 
     
-    
-    
-    ==== BORRAR ABANS D'ENTREGAR O ALGO NO SE ====
-    
-    BASICAMENT EL QUE BUSCA FER AQUESTA FUNCIÓ ÉS RETORNAR, A PARTIR DE L'ESTAT ACTUAL I L'ACCIÓ ACTUAL, LA PROBABILITAT DE CADA POSSIBLE FUTUR ESTAT. BASICAMENT CREA UN MAPA (LA MATRIU DE TRANSICIÓ) QUE DESPRÉS FARÀ SERVIR VALUE/POLICY ITERATION 
-    PER ESCOLLIR UN CAMÍ.
-
-    [AQUESTA FUNCIÓ NO ESTA ACABADA ENCARA]
-    '''
+        '''
     n_actions = len(Action) # Necessitem el nombre exacte d'accions i estats per poder saber les dimensions de la matriu 
     n_states = len(State) 
 
