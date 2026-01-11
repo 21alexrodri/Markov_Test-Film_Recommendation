@@ -5,13 +5,13 @@ from utils.cli import show_path
 
 '''
 En:
-    Module implementing the Policy Iteration algorithm for a Markov Decision Process (MDP).
+    Module implementing the Policy Iteration algorithm for a Markov Decision Process (MDP) using transition and reward matrices.
 
 Es:
-    Módulo que implementa el algoritmo de Policy Iteration para un Proceso de Decisión de Markov (MDP).
+    Módulo que implementa el algoritmo de Policy Iteration para un Proceso de Decisión de Markov (MDP) a partir de las matrices de transición y recompensa.
 
 Ca:
-    Mòdul que implementa l'algorisme de Policy Iteration per a un Procés de Decisió de Markov (MDP).
+    Mòdul que implementa l'algorisme de Policy Iteration per a un Procés de Decisió de Markov (MDP) a partir de les matrius de transició i recompensa.
 
 '''
 def run_policy_iteration(gamma: float = 0.9, state=None, max_steps=10):
